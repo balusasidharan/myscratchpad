@@ -1,0 +1,9 @@
+mvn archetype:generate \
+  -DarchetypeGroupId=org.apache.cxf.archetype \
+  -DarchetypeArtifactId=cxf-jaxrs-archetype \
+  -DarchetypeVersion=3.5.5 \ 
+  -DgroupId=com.mycompany \
+  -DartifactId=my-cxf-project \
+  -Dversion=1.0-SNAPSHOT \
+  -Dpackage=com.mycompany.cxf \
+  -DinteractiveMode=false
