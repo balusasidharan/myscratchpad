@@ -25,3 +25,28 @@ public class HelloResource {
         return "Hello from Spring Boot + CXF JAX-RS!";
     }
 }
+
+
+@@@@@@@
+
+
+package com.example.springbootcxfrs;
+
+import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.Collections;
+
+@Configuration
+public class CxfConfig {
+
+    @Bean
+    public JAXRSServerFactoryBean jaxRsServer(HelloResource helloResource) {
+        JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();
+        factory.setServiceBeans(Collections.singletonList(helloResource));
+        // The address where CXF will serve this resource
+        factory.setAddress("/api");  
+        return factory;
+    }
+}
