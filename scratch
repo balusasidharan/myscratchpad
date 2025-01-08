@@ -50,3 +50,41 @@ public class CxfConfig {
         return factory;
     }
 }
+
+
+
+
+######
+
+
+package com.example.springbootcxfrs;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class HelloResourceIntegrationTest {
+
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @Test
+    void testHelloEndpoint() {
+        // Build the local URL, e.g., http://localhost:12345/api/hello
+        String url = "http://localhost:" + port + "/api/hello";
+
+        // Perform GET request
+        String response = restTemplate.getForObject(url, String.class);
+
+        // Check that the response contains your expected text
+        assertTrue(response.contains("Hello from Spring Boot + CXF JAX-RS"),
+                   "Response should contain the expected greeting");
+    }
+}
