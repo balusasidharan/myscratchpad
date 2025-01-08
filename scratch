@@ -88,3 +88,59 @@ class HelloResourceIntegrationTest {
                    "Response should contain the expected greeting");
     }
 }
+
+
+
+package com.example.springbootcxfrs.client;
+
+import org.apache.cxf.feature.Feature;
+import org.apache.cxf.feature.LoggingFeature;
+import org.apache.cxf.feature.LoggingFeature.Verbosity;
+import org.apache.cxf.feature.GZIPFeature;
+import org.apache.cxf.jaxrs.client.WebClient;
+import org.apache.cxf.jaxrs.provider.json.JacksonJsonProvider;
+
+import javax.ws.rs.core.MediaType;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * A simple CXF client that calls the Open Library "Works" API
+ * and fetches JSON data for a given work ID.
+ */
+public class OpenLibraryClient {
+
+    private static final String BASE_URL = "https://openlibrary.org";
+
+    public Work getWorkById(String workId) {
+        // Create the GZip + Logging features
+        List<Feature> features = Arrays.asList(
+            createLoggingFeature(),
+            new GZIPFeature()
+        );
+
+        // Create a WebClient, passing in JacksonJsonProvider + features
+        WebClient client = WebClient.create(
+            BASE_URL,
+            Arrays.asList(new JacksonJsonProvider()),
+            features,
+            null
+        );
+
+        // Example path: /works/OL45883W.json
+        client.path("/works/{workId}.json", workId);
+
+        // Accept JSON
+        client.accept(MediaType.APPLICATION_JSON);
+
+        // GET request, parse JSON into our "Work" model
+        return client.get(Work.class);
+    }
+
+    private LoggingFeature createLoggingFeature() {
+        LoggingFeature lf = new LoggingFeature();
+        lf.setPrettyLogging(true);
+        lf.setVerbosity(Verbosity.PAYLOAD_ANY);
+        return lf;
+    }
+}
