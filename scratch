@@ -8,3 +8,20 @@ curl https://start.spring.io/starter.zip \
     -d type=maven-project \
     -d dependencies=web \
     -o spring-boot-cxf-rs.zip
+
+package com.example.springbootcxfrs;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/hello")
+public class HelloResource {
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String sayHello() {
+        return "Hello from Spring Boot + CXF JAX-RS!";
+    }
+}
