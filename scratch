@@ -1,9 +1,10 @@
-mvn archetype:generate \
-  -DarchetypeGroupId=org.apache.cxf.archetype \
-  -DarchetypeArtifactId=cxf-jaxrs-archetype \
-  -DarchetypeVersion=3.5.5 \ 
-  -DgroupId=com.mycompany \
-  -DartifactId=my-cxf-project \
-  -Dversion=1.0-SNAPSHOT \
-  -Dpackage=com.mycompany.cxf \
-  -DinteractiveMode=false
+curl https://start.spring.io/starter.zip \
+    -d groupId=com.example \
+    -d artifactId=spring-boot-cxf-rs \
+    -d name="SpringBootCxfRs" \
+    -d description="Demo Spring Boot + CXF JAX-RS project" \
+    -d javaVersion=17 \
+    -d packaging=jar \
+    -d type=maven-project \
+    -d dependencies=web \
+    -o spring-boot-cxf-rs.zip
